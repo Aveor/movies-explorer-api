@@ -16,22 +16,6 @@ const getUser = (req, res, next) => {
     .catch(next);
 };
 
-// const createUser = (req, res, next) => {
-//   const { name, email, password } = req.body;
-//   bcrypt.hash(password, 10, (error, hash) => {
-//     User.findOne({ email })
-//       .then((user) => {
-//         if (user) return next(new ConflictError('Такой пользователь уже существует'));
-//         return User.create({ name, email, password: hash })
-//           .then((newUser) => res
-//             .status(200)
-//             .send({ success: true, message: `Пользователь ${newUser.email} успешно создан` }))
-//           .catch((err) => console.log(err));
-//       })
-//       .catch(next);
-//   });
-// };
-
 const createUser = (req, res, next) => {
   const { email, password, name } = req.body;
 
@@ -61,28 +45,6 @@ const createUser = (req, res, next) => {
       next(err);
     });
 };
-
-// const login = (req, res, next) => {
-//   const { email, password } = req.body;
-//   return User.findOne({ email })
-//     .select('+password')
-//     .then(async (user) => {
-//       if (!user) {
-//         return next(new AuthError('Такого пользователя не существует'));
-//       }
-//       const isPasswordMatch = await bcrypt.compare(password, user.password);
-//       if (!isPasswordMatch) {
-//         return next(new AuthError('Не правильный логин или пароль'));
-//       }
-//       const token = jwt.sign(
-//         { _id: user._id },
-//         `${NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret'}`,
-//         { expiresIn: '7d' },
-//       );
-//       return res.status(200).send({ token });
-//     })
-//     .catch(next);
-// };
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
